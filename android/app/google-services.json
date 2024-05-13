@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "308294066183",
+    "project_id": "teklub-660e2",
+    "storage_bucket": "teklub-660e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308294066183:android:6e74930ea071b3c0054aa2",
+        "android_client_info": {
+          "package_name": "com.retail.tradechellenge"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvDE0DQyGun99leJ2r2De1CcI2Pj9ezE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
