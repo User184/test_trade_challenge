@@ -153,10 +153,11 @@ class _HomeMainWidgetState extends State<HomeMainWidget>
           await APIServiceAuth.sendVersionApp(version, fcmToken);
         }
 
-        if (version.compareTo(res) < 0) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const UpdateScreen()));
-        }
+        ///TODO на время без обновления, потом раскомментировать
+        // if (version.compareTo(res) < 0) {
+        //   Navigator.pushReplacement(context,
+        //       MaterialPageRoute(builder: (context) => const UpdateScreen()));
+        // }
       }
     } catch (e) {
       print(e);

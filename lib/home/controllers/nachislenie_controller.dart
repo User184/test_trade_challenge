@@ -80,8 +80,8 @@ class NachislenieController extends GetxController {
 
   bool act = false;
 
-  void getFile(context) async {
-    showAlertDialog(context);
+  void getFile({BuildContext context, int index}) async {
+    showAlertDialog(context: context, index: index);
     update();
   }
 
@@ -113,7 +113,7 @@ class NachislenieController extends GetxController {
     }
   }
 
-  Future<void> showAlertDialog(BuildContext context) async {
+  Future<void> showAlertDialog({BuildContext context, int index}) async {
     String title = "Выберите источник фото";
     String cameraText = "Сделать фото";
     String galeryText = "Выбрать из галереи";
@@ -126,7 +126,7 @@ class NachislenieController extends GetxController {
         style: const TextStyle(color: kGlobal),
       ),
       onPressed: () {
-        _getFromCamera(context);
+        _getFromCamera(context, index);
         Navigator.of(context).pop();
       },
     );
@@ -137,7 +137,7 @@ class NachislenieController extends GetxController {
         style: const TextStyle(color: kGlobal),
       ),
       onPressed: () {
-        _getFromGallery(context);
+        _getFromGallery(context, index);
         Navigator.of(context).pop();
       },
     );
@@ -148,7 +148,7 @@ class NachislenieController extends GetxController {
         style: const TextStyle(color: kGlobal),
       ),
       onPressed: () {
-        _getFromFile(context);
+        _getFromFile(context, index);
         Navigator.of(context).pop();
       },
     );
@@ -212,7 +212,7 @@ class NachislenieController extends GetxController {
               ),
               onPressed: () {
                 Navigator.of(context).pop(true);
-                _getFromCamera(context);
+                _getFromCamera(context, index);
               },
             ),
             CupertinoDialogAction(
@@ -222,7 +222,7 @@ class NachislenieController extends GetxController {
               ),
               onPressed: () {
                 Navigator.of(context).pop(true);
-                _getFromGallery(context);
+                _getFromGallery(context, index);
               },
             ),
             CupertinoDialogAction(
@@ -232,7 +232,7 @@ class NachislenieController extends GetxController {
               ),
               onPressed: () {
                 Navigator.of(context).pop(true);
-                _getFromFile(context);
+                _getFromFile(context, index);
               },
             ),
           ],
@@ -241,14 +241,24 @@ class NachislenieController extends GetxController {
     }
   }
 
-  _getFromGallery(context) async {
+  _getFromGallery(context, index) async {
     // ignore: deprecated_member_use
     File selectedFile;
     PickedFile result = await ImagePicker()
         .getImage(source: ImageSource.gallery, imageQuality: 15);
     if (result != null) {
       selectedFile = File(result.path);
-      selectedFiles.add(selectedFile);
+      if (selectedFiles.length == 2) {
+        selectedFiles
+          ..removeAt(index)
+          ..insert(index, selectedFile);
+      } else if (selectedFiles.length == 1 && index == 0) {
+        selectedFiles
+          ..removeAt(0)
+          ..insert(0, selectedFile);
+      } else {
+        selectedFiles.add(selectedFile);
+      }
     } else {
       selectedFiles.clear();
       CustomSnackBar.badSnackBar(context, 'Выбор фото отменен.');
@@ -257,14 +267,24 @@ class NachislenieController extends GetxController {
   }
 
   /// Get from Camera
-  _getFromCamera(context) async {
+  _getFromCamera(context, index) async {
     // ignore: deprecated_member_us
     File selectedFile;
     PickedFile result = await ImagePicker()
         .getImage(source: ImageSource.camera, imageQuality: 15);
     if (result != null) {
       selectedFile = File(result.path);
-      selectedFiles.add(selectedFile);
+      if (selectedFiles.length == 2) {
+        selectedFiles
+          ..removeAt(index)
+          ..insert(index, selectedFile);
+      } else if (selectedFiles.length == 1 && index == 0) {
+        selectedFiles
+          ..removeAt(0)
+          ..insert(0, selectedFile);
+      } else {
+        selectedFiles.add(selectedFile);
+      }
     } else {
       selectedFiles.clear();
       CustomSnackBar.badSnackBar(context, 'Выбор фото отменен.');
@@ -272,13 +292,23 @@ class NachislenieController extends GetxController {
     update();
   }
 
-  _getFromFile(context) async {
+  _getFromFile(context, index) async {
     File selectedFile;
     FilePickerResult result =
         await FilePicker.platform.pickFiles(type: FileType.any);
     if (result != null) {
       selectedFile = File(result.files.single.path);
-      selectedFiles.add(selectedFile);
+      if (selectedFiles.length == 2) {
+        selectedFiles
+          ..removeAt(index)
+          ..insert(index, selectedFile);
+      } else if (selectedFiles.length == 1 && index == 0) {
+        selectedFiles
+          ..removeAt(0)
+          ..insert(0, selectedFile);
+      } else {
+        selectedFiles.add(selectedFile);
+      }
     } else {
       selectedFiles.clear();
       CustomSnackBar.badSnackBar(context, 'Выбор фото отменен.');

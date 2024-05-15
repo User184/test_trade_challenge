@@ -102,9 +102,9 @@ class AvailableMethods {
     card = json['card'];
     phone = json['phone'];
   }
-  bool certificate;
-  bool card;
-  bool phone;
+  int certificate;
+  int card;
+  int phone;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -143,15 +143,14 @@ Data dataFromJson(String str) => Data.fromJson(json.decode(str));
 String dataToJson(Data data) => json.encode(data.toJson());
 
 class Data {
-  Data({
-    this.amount,
-    this.createdAt,
-    this.id,
-    this.status,
-    this.title,
-    this.hasActs,
-    this.actStatus
-  });
+  Data(
+      {this.amount,
+      this.createdAt,
+      this.id,
+      this.status,
+      this.title,
+      this.hasActs,
+      this.actStatus});
 
   Data.fromJson(dynamic json) {
     amount = json['amount'];
